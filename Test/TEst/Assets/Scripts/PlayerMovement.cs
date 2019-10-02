@@ -2,26 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GraySpray : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    public Rigidbody toot;
-    
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!Cursor.visible)
+        {
+            if (Input)
+        }
     }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.name);
-    }
-
 }
