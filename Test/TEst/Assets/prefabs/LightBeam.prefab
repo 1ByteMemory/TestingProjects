@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee69f053c144f634d9c89e0cad3dde76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 3423860306212435498}
   shineSpeed: 5
   isHit: 0
   hitObject: {fileID: 0}

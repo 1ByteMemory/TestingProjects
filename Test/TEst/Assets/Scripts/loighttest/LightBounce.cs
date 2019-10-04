@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class LightBounce : MonoBehaviour
 {
-
+    public GameObject prefab;
     public float shineSpeed = 5;
 
-    [HideInInspector]
-    public bool isHit = false;
-    [HideInInspector]
-    public GameObject hitObject;
+    [SerializeField]
+    private bool isHit = false;
+    [SerializeField]
+    private GameObject hitObject;
 
-    bool newBeam = false;
+    bool isNewBeam = false;
     RaycastHit rayHitInfo;
 
-    public GameObject lightEnd;
+    Transform lightEnd;
     float lightEndStartRadius;
 
-    float hitAngle;
+    GameObject newBeam;
     
     // Start is called before the first frame update
     void Start()
     {
+        lightEnd = transform.GetChild(1);
         lightEndStartRadius = lightEnd.GetComponent<SphereCollider>().radius;
     }
 
@@ -41,43 +42,24 @@ public class LightBounce : MonoBehaviour
             hitObject = null;
         }
 
-        if (isHit && hitObject != null && hitObject.tag == "mirror" && !newBeam)
+        if (isHit && hitObject != null && hitObject.tag == "mirror" && !isNewBeam)
         {
-            newBeam = true;
-            
-            NewAngle(transform.position, lightEnd.transform.position);
+            isNewBeam = true;
 
-            // <<<------ Calculate bounce off angle ------->>> //
+            Vector3 lightPos = lightEnd.position;
+            Vector3 localForward = lightEnd.TransformDirection(Vector3.forward);
 
-        }
-    }
+            if (Physics.Raycast(lightPos, localForward, out rayHitInfo, 2))
+            {
+                Vector3 normal = rayHitInfo.normal;
 
+                Vector3 reflect = Vector3.Reflect(localForward, normal);
+                
+                newBeam = Instantiate(prefab, lightEnd.position, transform.rotation);
+                newBeam.transform.rotation = Quaternion.LookRotation(reflect);
+                newBeam.transform.localScale = Vector3.one;
 
-
-    void NewAngle(Vector3 pointA, Vector3 pointB)
-    {
-        float Adj, Opp;
-
-        // Opposite is always set as the hieght difference
-        if (pointA.y > pointB.y)
-            Opp = pointA.y - pointB.y;
-        else if (pointB.y > pointA.y)
-            Opp = pointB.y - pointA.y;
-        else
-            Opp = 0;
-
-        if (Opp != 0)
-        {
-            // Pythagoras theroum is used to calculate the Adjasent
-            // (The defference bewteen the x and z coords)
-            Adj = Mathf.Sqrt(Mathf.Pow(pointB.x - pointA.x, 2) + Mathf.Pow(pointB.z - pointA.z, 2));
-
-            float radians = Mathf.Atan(Opp / Adj);
-            hitAngle = radians * (180 / Mathf.PI);
-        }
-        else
-        {
-            hitAngle = 0;
+            }
         }
     }
 }
