@@ -39,6 +39,18 @@ public class Interatct : MonoBehaviour
                 }
 
             }
+            if (hit.transform.tag == "Button")
+            {
+                Object = hit.transform.gameObject;
+                image.color = Color.blue;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Object.GetComponent<ButtonScript>().isActivate = true;
+                }
+            }
+
+
             else
                 image.color = Color.white;
         }

@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 3423860306212435498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.6229999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 3423860305803144444}
   - {fileID: 4208998484674543423}
@@ -123,10 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3423860306212435498}
-  shineSpeed: 5
+  shineSpeed: 7
   isHit: 0
   hitObject: {fileID: 0}
-  lightEnd: {fileID: 8011054436937430903}
 --- !u!1 &8011054436937430903
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +195,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8011054436937430903}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.27

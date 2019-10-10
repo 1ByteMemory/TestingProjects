@@ -7,12 +7,12 @@ public class LightBounce : MonoBehaviour
     public GameObject prefab;
     public float shineSpeed = 5;
 
-    [SerializeField]
-    private bool isHit = false;
-    [SerializeField]
-    private GameObject hitObject;
+    
+    public bool isHit;
+    
+    public GameObject hitObject;
 
-    bool isNewBeam = false;
+    bool isNewBeam;
     RaycastHit rayHitInfo;
 
     Transform lightEnd;
@@ -20,10 +20,22 @@ public class LightBounce : MonoBehaviour
 
     GameObject newBeam;
     
+
+
     // Start is called before the first frame update
     void Start()
     {
+        isHit = false;
+        isNewBeam = false;
+        hitObject = null;
+
+        
         lightEnd = transform.GetChild(1);
+
+        /// --!!-- THIS IS HARD CODED, SOFT CODE IT WHEN NOT PROTOTYPE --!!-- ///
+        lightEnd.GetComponent<SphereCollider>().radius = 0.2f;
+
+
         lightEndStartRadius = lightEnd.GetComponent<SphereCollider>().radius;
     }
 
@@ -57,7 +69,7 @@ public class LightBounce : MonoBehaviour
                 
                 newBeam = Instantiate(prefab, lightEnd.position, transform.rotation);
                 newBeam.transform.rotation = Quaternion.LookRotation(reflect);
-                newBeam.transform.localScale = Vector3.one;
+                newBeam.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             }
         }
